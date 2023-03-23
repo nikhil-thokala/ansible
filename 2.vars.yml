@@ -35,3 +35,18 @@
     - name: print play Variable from inventory
       ansible.builtin.debug:
         msg: URL = {{ URL }}
+
+- name: register a variable
+  hosts: localhost
+  tasks:
+    - name: get uptime output
+      ansible.builtin.shell: uptime
+      register: out
+
+    - name: print out
+      ansible.builtin.debug:
+        msg: "{{out}}"
+
+    - name: Declare a variable
+      ansible.builtin.set_fact:
+        status: "{{out.rc}}"
